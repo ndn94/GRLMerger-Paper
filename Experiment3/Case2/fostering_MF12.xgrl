@@ -1,0 +1,106 @@
+grl fosteringUniversityAlumni_MF12 {
+	actor A1 {
+		name = "University";
+		goal G1 {
+			name = "University-Alumni relationship is fostered";
+		}
+		A2.G2 contributesTo G1 {50;};
+		A3.G3 contributesTo G1 {50;};
+		A4.G5 contributesTo G1 {50;};
+	}
+	actor A2 {
+		name = "Alumni Department";
+		goal G2 {
+			name = "Serving alumni through University commitment";
+		}
+		task T1 {
+			name = "Organize networking events";
+		}
+		task T2 {
+			name = "Provide access to the university learning facilities";
+		}
+		task T3 {
+			name = "provide prospective faculties with alumni information";
+		}
+		task T4 {
+			name = "Free seminar admission is provided";
+		}
+		task T5 {
+			name = "Reduce registration costs for short courses";
+		}
+		task T6 {
+			name = "Use SMS for all communications";
+		}
+		
+		T1 contributesTo G2 {25;};
+		T2 contributesTo G2 {25;};
+		T3 contributesTo G2 {hurt;};
+		T4 contributesTo G2 {50;};
+		T5 contributesTo G2 {50;};
+		T6 contributesTo G2 {hurt;};
+		R1 dependsOn T3;
+	}
+
+	actor A3 {
+		name = "Alumnus";
+		goal G3 {
+			name = "Serving university through alumni commitment";
+		}
+		task T7 {
+			name = "Volunteering";
+		}
+		task T8 {
+			name = "Mentoring current students";
+		}
+		task T9 {
+			name = "Helping with student placement through internship offerings";
+		}
+		task T10 {
+			name = "facilitating the collaboration in research";
+		}
+		task T11 {
+			name = "Donating to the university";
+		}
+		goal T12 {
+			name = "giving course and syllabus feedback";
+		}
+		indicator I1 {
+			name = "Average number of hours donated (in minutes)";
+		}
+		belief B1 {
+			name = "Alumnus' contribution has the most effect on the program";
+			description = "Alumnus' contribution has the most effect on the program";
+		}
+		G3 contributesTo T7 {17;};
+		T8 contributesTo G3 {17;};
+		T9 contributesTo G3 {17;};
+		T10 contributesTo G3 {17;};
+		T11 contributesTo G3 {17;};
+		T12 contributesTo G3 {17;};
+		T7 dependsOn A2.T6;
+		T10 dependsOn R1;
+		T12 contributesTo A4.S1 {75;};
+		I1 contributesTo T7 {100;};
+		G3 contributesTo I1 {25;};
+	}
+	actor A4 {
+		name = "Instructor";
+		softGoal S1 {
+			name = "Rich courses syllabi designed";
+		}
+		softGoal G5 {
+			name = "Enhanced Industry-University collaboration";
+			decompositionType = or;
+		}
+		task T13 {
+			name = "Consulting";
+		}
+		task T14 {
+			name = "Contributing to industrial projects";
+		}
+		G5 decomposedBy T13, T14, A3.T10;
+	}
+	resource R1 {
+		name = "Alumni Data Repository";
+	}
+}
