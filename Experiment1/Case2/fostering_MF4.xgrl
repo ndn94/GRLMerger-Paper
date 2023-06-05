@@ -1,0 +1,76 @@
+grl fosteringUniversityAlumni_MF4 {
+	actor A1 {
+		name = "University";
+		goal G1 {
+			name = "University-Alumni relationship is fostered";
+		}
+		G1 decomposedBy A2.G2, A3.G3, A4.G5;
+	}
+	actor A2 {
+		name = "Alumni Department";
+		goal G2 {
+			name = "Serving alumni through University commitment";
+		}
+
+		task T3 {
+			name = "Share alumni information with potential faculties";
+		}
+		task T4 {
+			name = "Provide free admissions to seminars";
+		}
+		task T5 {
+			name = "Provide discounts on short courses registration fees";
+		}
+		
+		T3 contributesTo G2 {hurt;};
+		T4 contributesTo G2 {25;};
+		T5 contributesTo G2 {50;};
+		R1 dependsOn T3;
+	}
+
+	actor A3 {
+		name = "Alumnus";
+		goal G3 {
+			name = "Serving university through alumni commitment";
+		}
+		task T7 {
+			name = "Volunteering";
+		}
+		task T8 {
+			name = "Mentoring current students";
+		}
+		task T9 {
+			name = "Helping with student placement through internship offerings";
+		}
+		task T10 {
+			name = "Facilitating research collaboration";
+		}
+		task T12 {
+			name = "Providing feedback on courses and syllabi";
+		}
+		T7 contributesTo G3 {17;};
+		T8 contributesTo G3 {17;};
+		T9 contributesTo G3 {17;};
+		T12 contributesTo G3 {17;};
+		T10 dependsOn R1;
+		T12 contributesTo A4.S1 {75;};
+	}
+	actor A4 {
+		name = "Professor";
+		softGoal S1 {
+			name = "Rich courses syllabi designed";
+		}
+		goal G5 {
+			name = "Enhanced Industry-University collaboration";
+			decompositionType = or;
+		}
+
+		task T14 {
+			name = "Contributing to industrial projects";
+		}
+		G5 decomposedBy T14, A3.T10;
+	}
+	resource R1 {
+		name = "Alumni Data Repository";
+	}
+}
