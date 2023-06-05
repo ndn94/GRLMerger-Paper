@@ -1,0 +1,98 @@
+grl SMS_MS2 {
+	actor A1 {
+		name = "Seminar Management System";
+		goal A1G1 {
+			name = "Contain all seminars";
+		}
+	
+	}
+	actor A2 {
+		name = "Admin";
+		task A2T1 {
+			name = "Add Seminar";
+		}
+		task A2T2 {
+			name = "Add speakers from outside the managing department";
+		}
+		task A2T3 {
+			name = "Post an advertisement on social media about the seminar";
+		}
+		softGoal A2S1 {
+			name = "Minimize adminstration duties";
+			importance = 50;
+		}
+		softGoal A2S2 {
+			name = "Low cost";
+			importance = 100;
+		}
+		softGoal A2S3 {
+			name = "Diversity of the delivered seminars content";
+		}
+		A2T2 contributesTo A2S3 {75;};
+		A2T2 contributesTo A3.A3G2 {25;};
+	}
+	actor A3 {
+		name = "Seminar Organizer";
+		goal A3G1 {
+			name = "Create seminars";
+			decompositionType = xor;
+		}
+		goal A3G2 {
+			name = "Manage speakers";
+		}
+		goal A3G3 {
+			name = "Promote the department";
+			importance = 100;
+		}
+		goal A3G4 {
+			name = "Have many attendees in the managed seminar";
+		}
+		task A3T1 {
+			name = "Send request to admin";
+			decompositionType = xor;
+		}
+		task A3T2 {
+			name = "Make a phone call";
+		}
+		task A3T3 {
+			name = "Send an email";
+		}
+		task A3T4 {
+			name = "Add seminar directly";
+		}
+		task A3T5 {
+			name = "Add speakers from the department";
+		}
+		A3G1 decomposedBy A3T1, A3T4;
+		A3T1 decomposedBy A3T2, A3T3;
+		A3T5 contributesTo A3G2 {25;};
+		A3T5 contributesTo A3G3 {75;};
+	}
+	actor A4 {
+		name = "Attendees";
+		goal A4G1 {
+			name = "Get reminders before the seminar starts";
+			importance = 100;
+		}
+		softGoal A4S1 {
+			name = "Easy to use web system";
+			importance = 100;
+		}
+		task A4T1 {
+			name = "Register in the seminar";
+		}
+		A1.A1G1 contributesTo A4T1 {25;};
+		A4T1 contributesTo A3.A3G4 {25;};
+	}
+	actor A5 {
+		name = "Speaker";
+		goal A5G1 {
+			name = "Added to a seminar of same area of interest";
+		}
+		softGoal A5S1 {
+			name = "Prepare presentation faster";
+			importance = 100;
+		}
+		A5G1 contributesTo A5S1 {100;};
+	}
+}

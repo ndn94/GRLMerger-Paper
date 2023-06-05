@@ -1,0 +1,81 @@
+grl SMS_MS1 {
+	actor A1 {
+		name = "Seminar Management System";
+		goal A1G1 {
+			name = "Contain all seminars";
+		}
+		goal A1G2 {
+			name = "Manage seminars";
+			decompositionType = or;
+		}
+		goal A1G3 {
+			name = "Manage attendees";
+		}
+		A1G2 decomposedBy A2.A2T1, A3.A3G1;
+	}
+	actor A2 {
+		name = "Admin";
+		task A2T1 {
+			name = "Add Seminar";
+		}
+		task A2T2 {
+			name = "Add speakers from outside the managing department";
+		}
+		task A2T3 {
+			name = "Post an advertisement on social media about the seminar";
+		}
+		softGoal A2S1 {
+			name = "Minimize adminstration duties";
+			importance = 50;
+		}
+		softGoal A2S2 {
+			name = "Low cost";
+			importance = 100;
+		}
+		softGoal A2S3 {
+			name = "Diversity of the delivered seminars content";
+		}
+		A2T2 contributesTo A2S3 {75;};
+		A2T1 dependsOn R1;
+	}
+	actor A3 {
+		name = "Seminar Organizer";
+		goal A3G1 {
+			name = "Create seminars";
+			decompositionType = xor;
+		}
+
+		goal A3G3 {
+			name = "Promote the department";
+			importance = 100;
+		}
+		goal A3G4 {
+			name = "Have many attendees in the managed seminar";
+		}
+		task A3T1 {
+			name = "Send request to admin";
+		}
+		
+		task A3T4 {
+			name = "Add seminar directly";
+		}
+		task A3T5 {
+			name = "Add speakers from the department";
+		}
+		task A3T6 {
+			name = "Encourage colleagues to register in the seminar";
+		}
+		A3G1 decomposedBy A3T1, A3T4;
+		R1 dependsOn A3T1;
+		A2.A2T3 contributesTo A3G4 {25;};
+		A3T6 contributesTo A3G4 {
+			25;
+		};
+		A3T5 contributesTo A3G3 {75;};
+		A3T5 contributesTo A2.A2S3 {hurt;};
+	}
+
+	resource R1 {
+		name = "Seminar Request";
+	}
+}
